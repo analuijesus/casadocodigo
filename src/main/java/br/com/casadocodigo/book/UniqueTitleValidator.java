@@ -2,26 +2,26 @@ package br.com.casadocodigo.book;
 
 import java.util.Optional;
 
-public class UniqueIsbnValidator extends BookValidator {
+public class UniqueTitleValidator extends BookValidator {
 
     private BookRepository bookRepository;
 
-    public UniqueIsbnValidator(BookRepository bookRepository) {
+    public UniqueTitleValidator(BookRepository bookRepository) {
         super(bookRepository);
     }
 
     @Override
     public Optional<Book> searchBookByField(NewBookForm form) {
-        return bookRepository.findByIsbn(form.getIsbn());
+        return bookRepository.findByIsbn(form.getTitle());
     }
 
     @Override
     public String fieldNameInvalid() {
-        return "isbn";
+        return "title";
     }
 
     @Override
     public String messageError() {
-        return "book.isbn.unique";
+        return "book.title.unique";
     }
 }

@@ -5,11 +5,11 @@ import org.springframework.validation.Validator;
 
 import java.util.Optional;
 
-public class UniqueBookTitleValidator implements Validator {
+public abstract class BookValidator implements Validator {
 
     private BookRepository bookRepository;
 
-    public UniqueBookTitleValidator(BookRepository bookRepository) {
+    public BookValidator(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
@@ -18,15 +18,20 @@ public class UniqueBookTitleValidator implements Validator {
         return NewBookForm.class.isAssignableFrom(clazz);
     }
 
+    public abstract Optional<Book> searchBookByField(NewBookForm form);
+
+    public abstract String fieldNameInvalid();
+
+    public abstract String messageError();
+
     @Override
     public void validate(Object target, Errors errors) {
         NewBookForm form = (NewBookForm) target;
-        String title = form.getTitle();
 
-        Optional<Book> bookPossible = bookRepository.findByTitle(title);
+        Optional<Book> bookPossible = searchBookByField(form);
 
         if (bookPossible.isPresent()) {
-            errors.rejectValue("title", null, "book.title.unique");
+            errors.rejectValue(fieldNameInvalid(), null, messageError());
         }
     }
 }

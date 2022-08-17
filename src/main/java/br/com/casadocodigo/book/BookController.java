@@ -22,7 +22,7 @@ public class BookController {
 
     @InitBinder
     public void init(WebDataBinder dataBinder){
-        dataBinder.addValidators(new UniqueIsbnValidator(bookRepository), new UniqueBookTitleValidator(bookRepository));
+        dataBinder.addValidators(new UniqueIsbnValidator(bookRepository), new UniqueTitleValidator(bookRepository));
     }
 
     @PostMapping(value = "api/book")
