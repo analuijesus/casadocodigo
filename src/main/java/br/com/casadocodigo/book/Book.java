@@ -52,6 +52,18 @@ public class Book {
     public Book() {
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public String getAuthorName(){
+        return author.getName();
+    }
+
     @Override
     public String toString() {
         return super.toString();

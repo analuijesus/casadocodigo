@@ -31,6 +31,10 @@ public class Author {
     @Deprecated
     public Author() {}
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return super.toString();
